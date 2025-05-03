@@ -15,8 +15,11 @@ namespace AppModels.Mapping
 		public MappingProfile()
 		{
 			CreateMap<Producto, ProductoDTO>().ReverseMap();
+			CreateMap<Producto, CreateProductoDTO>().ReverseMap();
+			CreateMap<Producto, UpProductoDTO>().ReverseMap();
 
 			CreateMap<Categoria, CategoriaDTO>().ReverseMap();
+			CreateMap<Categoria, CreateCategoriaDTO>().ReverseMap();
 		}
 	}
 }

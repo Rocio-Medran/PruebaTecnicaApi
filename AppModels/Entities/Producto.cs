@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,10 @@ namespace AppModels.Entities
 		[Required]
 		[MaxLength(100)]
 		public string Nombre { get; set; }
+		[Required]
+		[Precision(18, 2)]
 		public decimal Precio { get; set; }
+		[Required]
 		public int Stock { get; set; }
 		[ForeignKey(nameof(Categoria.Id))]
 		public int IdCategoria { get; set; }
