@@ -17,5 +17,16 @@ namespace Data.Data
 
 		public DbSet<Producto> Productos { get; set; }
 		public DbSet<Categoria> Categorias {  get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Producto>()
+				.HasOne(p => p.Categoria)
+				.WithMany(c => c.Productos)
+				.HasForeignKey(p => p.IdCategoria)
+				.OnDelete(DeleteBehavior.Restrict);
+		}
 	}
 }
