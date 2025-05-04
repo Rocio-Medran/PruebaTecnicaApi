@@ -15,9 +15,10 @@ namespace AppModels.DTOs
 		[Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a cero")]
 		public decimal Precio { get; set; }
 
-		[Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo")]
+		[Range(0, 1000000, ErrorMessage = "El stock no puede ser negativo")]
 		public int Stock { get; set; }
 
+		[Range(1, int.MaxValue, ErrorMessage = "El IdCategoria no puede ser negativo")]
 		public int IdCategoria {  get; set; }
 	}
 }
