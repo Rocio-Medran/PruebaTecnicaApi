@@ -39,6 +39,9 @@ namespace Servicios.Servicios
 
 		public async Task<ProductoDTO> AddProductoAsync(CreateProductoDTO productoDTO)
 		{
+			var categoria = await _categoriaRepository.GetByIdAsync(productoDTO.IdCategoria);
+			if (categoria == null) throw new Exception("La categoría ingresada no existe"); 
+
 			var producto = _mapper.Map<Producto>(productoDTO);
 			await _productoRepository.AddAsync(producto);
 			return _mapper.Map<ProductoDTO>(producto);

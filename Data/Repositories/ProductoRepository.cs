@@ -21,12 +21,17 @@ namespace Data.Repositories
 
 		public async Task<IEnumerable<Producto>> GetAllAsync()
 		{
-			return await _context.Productos.AsNoTracking().ToListAsync();
+			return await _context.Productos
+				.Include(p => p.Categoria)
+				.AsNoTracking()
+				.ToListAsync();
 		}
 
 		public async Task<Producto?> GetByIdAsync(int id)
 		{
-			return await _context.Productos.FindAsync(id);
+			return await _context.Productos
+				.Include(p => p.Categoria)
+				.FirstOrDefaultAsync(p => p.Id == id);
 		}
 
 		public async Task AddAsync(Producto producto)

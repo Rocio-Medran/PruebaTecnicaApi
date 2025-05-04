@@ -14,9 +14,12 @@ namespace AppModels.Mapping
 	{
 		public MappingProfile()
 		{
-			CreateMap<Producto, ProductoDTO>().ReverseMap();
 			CreateMap<Producto, CreateProductoDTO>().ReverseMap();
 			CreateMap<Producto, UpProductoDTO>().ReverseMap();
+			CreateMap<Producto, ProductoDTO>()
+				.ForMember(dest => dest.NombreCategoria, opt => opt.MapFrom(src => src.Categoria.Nombre));
+			CreateMap<ProductoDTO, Producto>();
+
 
 			CreateMap<Categoria, CategoriaDTO>().ReverseMap();
 			CreateMap<Categoria, CreateCategoriaDTO>().ReverseMap();

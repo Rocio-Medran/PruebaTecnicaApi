@@ -19,44 +19,84 @@ namespace PruebaTecnicaApi.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetCategorias()
 		{
-			var categorias = await _service.GetCategoriasAsync();
-			return Ok(categorias);
+			try
+			{
+				var categorias = await _service.GetCategoriasAsync();
+				return Ok(categorias);
+			}
+			catch (Exception ex)
+			{
+
+				return BadRequest(new { mensaje = ex.Message });
+			}
 		}
 
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetCategoria(int id)
 		{
-			var categoria = await _service.GetCategoriaByIdAsync(id);
-			if (categoria == null) return NotFound();
+			try
+			{
+				var categoria = await _service.GetCategoriaByIdAsync(id);
+				if (categoria == null) return NotFound();
 
-			return Ok(categoria);
+				return Ok(categoria);
+			}
+			catch (Exception ex)
+			{
+
+				return BadRequest(new { mensaje = ex.Message });
+			}
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCategoria(CreateCategoriaDTO categoriaDTO)
+		public async Task<IActionResult> AddCategoria([FromBody] CreateCategoriaDTO categoriaDTO)
 		{
-			if (!ModelState.IsValid) return BadRequest(ModelState);
+			try
+			{
+				if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var categoria = await _service.AddCategoriaAsync(categoriaDTO);
-			return CreatedAtAction(nameof(GetCategoria), new { id = categoria.Id }, categoria);
+				var categoria = await _service.AddCategoriaAsync(categoriaDTO);
+				return CreatedAtAction(nameof(GetCategoria), new { id = categoria.Id }, categoria);
+			}
+			catch (Exception ex)
+			{
+
+				return BadRequest(new { mensaje = ex.Message });
+			}
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCategoria(CreateCategoriaDTO categoriaDTO, int id)
+		public async Task<IActionResult> UpdateCategoria([FromBody] CreateCategoriaDTO categoriaDTO, int id)
 		{
-			if (!ModelState.IsValid) return BadRequest(ModelState);
+			try
+			{
+				if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var categoria = await _service.UpdateCategoriaAsync(categoriaDTO, id);
-			if (!categoria) return NotFound();
-			return NoContent();
+				var categoria = await _service.UpdateCategoriaAsync(categoriaDTO, id);
+				if (!categoria) return NotFound();
+				return NoContent();
+			}
+			catch (Exception ex)
+			{
+
+				return BadRequest(new { mensaje = ex.Message });
+			}
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteCategoria(int id)
 		{
-			var categoria = await _service.DeleteCategoriaAsync(id);
-			if (!categoria) return NotFound();
-			return NoContent();
+			try
+			{
+				var categoria = await _service.DeleteCategoriaAsync(id);
+				if (!categoria) return NotFound();
+				return NoContent();
+			}
+			catch (Exception ex)
+			{
+
+				return BadRequest(new { mensaje = ex.Message });
+			}
 		}
 	}
 }

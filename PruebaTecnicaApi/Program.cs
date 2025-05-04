@@ -36,7 +36,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
 	var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-	dbContext.Database.EnsureCreated(); // Crea la BD si no existe
+	dbContext.Database.Migrate(); // Aplica las migraciones pendientes si las hay.
 
 	// Configure the HTTP request pipeline.
 	if (app.Environment.IsDevelopment())

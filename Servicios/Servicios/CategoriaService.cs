@@ -54,10 +54,15 @@ namespace Servicios.Servicios
 
 		public async Task<bool> DeleteCategoriaAsync(int id)
 		{
-			var categoria = await _repository.GetByIdAsync(id);
+			var categoria = await _repository.GetConProductosAsync(id);
 			if (categoria == null) return false;
 
-			await _repository.DeleteAsync(id);
+			if (categoria.Productos.Any())
+			{
+				throw new Exception("No se puede eliminar esta categoria porque tiene productos asociados");
+			}
+
+			await _repository.DeleteAsync(categoria.Id);
 			return true;
 		}
 	}

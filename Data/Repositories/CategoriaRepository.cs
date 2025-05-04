@@ -29,6 +29,13 @@ namespace Data.Repositories
 			return await _context.Categorias.FindAsync(id);
 		}
 
+		public async Task<Categoria?> GetConProductosAsync(int id)
+		{
+			return await _context.Categorias
+				.Include(c => c.Productos)
+				.FirstOrDefaultAsync(c => c.Id == id);
+		}
+
 		public async Task AddAsync(Categoria categoria)
 		{
 			_context.Categorias.Add(categoria);
